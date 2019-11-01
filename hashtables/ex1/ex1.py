@@ -12,7 +12,18 @@ def get_indices_of_item_weights(weights, length, limit):
     """
     YOUR CODE HERE
     """
+    while ht.capacity < length:
+        hash_table_resize(ht)
 
+    index = 0
+    for item in weights:
+        remainder = limit - item
+        if hash_table_retrieve(ht, remainder) != None:
+            if hash_table_retrieve(ht, remainder) > index:
+                return (hash_table_retrieve(ht, remainder), index)
+            return (index, hash_table_retrieve(ht, remainder))
+        hash_table_insert(ht, item, index)
+        index +=1
     return None
 
 
